@@ -15,15 +15,15 @@ export interface DataProps {
 }
 
 export interface ResponseProps {
-  data: DataProps[] | undefined;
+  data: DataProps[];
 }
 
 function useFetchData(url: string): {
-  result: ResponseProps;
+  result: ResponseProps | undefined;
   fetchStatus: string;
   error: { status: string; error: string };
 } {
-  const cache = useRef({});
+  const cache = useRef<any>({});
   const [result, setResult] = useState<ResponseProps>();
   const [fetchStatus, setFetchStatus] =
     useState<"idle" | "loading" | "loaded">("idle");
@@ -35,6 +35,7 @@ function useFetchData(url: string): {
       return;
     }
 
+    console.log("derd, cache", cache);
     setFetchStatus("loading");
     if (cache.current[url]) {
       setResult(cache.current[url]);
