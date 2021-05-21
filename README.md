@@ -5,3 +5,6 @@ On load the app makes an AJAX request and return a response with the data and ne
 The response of the AJAX request is then handed onto state variables which in turn relays them to a table in order to display the information in the form of a basic summary and further details onClick.
 
 The components are written as Functional components with React and Typescript.
+
+Usage:
+please run `npm start` after cloning the repo.
