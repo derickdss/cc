@@ -35,7 +35,6 @@ function useFetchData(url: string): {
       return;
     }
 
-    console.log("derd, cache", cache);
     setFetchStatus("loading");
     if (cache.current[url]) {
       setResult(cache.current[url]);
