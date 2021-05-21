@@ -18,21 +18,24 @@ export interface ResponseProps {
   data: DataProps[] | undefined;
 }
 
-const usePostStarshipService = (
-  url: string
-): {
+function useFetchData(url: string): {
   result: ResponseProps;
   fetchStatus: string;
   error: { status: string; error: string };
-} => {
+} {
   const cache = useRef({});
   const [result, setResult] = useState<ResponseProps>();
   const [fetchStatus, setFetchStatus] =
     useState<"idle" | "loading" | "loaded">("idle");
   const [error, setError] = useState({ status: "no error", error: "" });
   useEffect(() => {
-    if (!url) return;
+    if (!url) {
+      setError({ status: "error", error: "Invalid Url" });
+      setFetchStatus("idle");
+      return;
+    }
 
+    setFetchStatus("loading");
     if (cache.current[url]) {
       setResult(cache.current[url]);
       setFetchStatus("loaded");
@@ -48,12 +51,12 @@ const usePostStarshipService = (
   }, [url]);
 
   return { result, fetchStatus, error };
-};
+}
 
 const App: React.FC = () => {
   const cdccEndpoint =
     "https://api.test.datacite.org/dois?query=prefix:10.5517";
-  const { result, fetchStatus, error } = usePostStarshipService(cdccEndpoint);
+  const { result, fetchStatus, error } = useFetchData(cdccEndpoint);
 
   if (error.status === "error") {
     console.log("error seen as", error.error);
