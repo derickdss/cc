@@ -107,7 +107,7 @@ const Row: React.FC<{
 };
 
 const CollapsibleTable: React.FC<{
-  data: ResponseProps;
+  data: ResponseProps | undefined;
   loadedStatus: string;
   tableHeaderColumns: string[];
   collapsibleSectionHeader: string;
